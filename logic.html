@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logical Reasoning</title>
+    <script>
+        function checkAnswer(button, isCorrect) {
+            const feedback = document.getElementById('feedback');
+            if (isCorrect) {
+                feedback.textContent = 'Correct! Carrot is the odd one out.';
+                feedback.style.color = 'green';
+            } else {
+                feedback.textContent = 'Incorrect. Try again.';
+                feedback.style.color = 'red';
+            }
+        }
+    </script>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
+
+    <!-- Header Section -->
+    <div style="background-color: #28012f; padding: 20px; text-align: center; color: white;">
+        <h1 style="margin: 0;">Logical Reasoning</h1>
+    </div>
+
+    <!-- Main Content Section -->
+    <div style="padding: 20px;">
+        
+        <!-- What is Logical Reasoning -->
+        <section style="margin-bottom: 20px;">
+            <h2 style="color: #4CAF50;">What is Logical Reasoning?</h2>
+            <p>Logical reasoning is the process of using rational, systematic steps based on sound mathematical procedures and given statements to arrive at a conclusion about a problem.</p>
+        </section>
+        
+        <!-- Why is Logical Reasoning Important -->
+        <section style="margin-bottom: 20px;">
+            <h2 style="color: #4CAF50;">Why is Logical Reasoning Important?</h2>
+            <p>Logical reasoning is important because it helps individuals to analyze problems systematically, make decisions based on evidence, and develop coherent arguments. It is a crucial skill in various fields such as mathematics, science, engineering, and everyday problem-solving.</p>
+        </section>
+
+        <!-- Types of Logical Reasoning -->
+        <section style="margin-bottom: 20px;">
+            <h2 style="color: #4CAF50;">Types of Logical Reasoning</h2>
+            <ul style="list-style-type: disc; margin-left: 20px;">
+                <li>Deductive Reasoning</li>
+                <li>Inductive Reasoning</li>
+                <li>Abductive Reasoning</li>
+                <li>Analogical Reasoning</li>
+            </ul>
+        </section>
+
+        <!-- Examples -->
+        <section style="margin-bottom: 20px;">
+            <h2 style="color: #4CAF50;">Examples</h2>
+            <p><strong>Example 1:</strong> If all humans are mortal, and Socrates is a human, then Socrates is mortal.</p>
+            <p><strong>Example 2:</strong> If it rains, the ground gets wet. It is raining. Therefore, the ground is wet.</p>
+        </section>
+
+        <!-- Sample Question -->
+        <section>
+            <h2 style="color: #4CAF50;">Sample Question</h2>
+            <p>Which of the following is the odd one out?</p>
+            <ul style="list-style-type: none; padding: 0;">
+                <li><button onclick="checkAnswer(this, false)" style="padding: 10px 20px; margin: 5px; background-color: #f1f1f1; border: 1px solid #ccc; cursor: pointer;">Apple</button></li>
+                <li><button onclick="checkAnswer(this, false)" style="padding: 10px 20px; margin: 5px; background-color: #f1f1f1; border: 1px solid #ccc; cursor: pointer;">Banana</button></li>
+                <li><button onclick="checkAnswer(this, true)" style="padding: 10px 20px; margin: 5px; background-color: #f1f1f1; border: 1px solid #ccc; cursor: pointer;">Carrot</button></li>
+                <li><button onclick="checkAnswer(this, false)" style="padding: 10px 20px; margin: 5px; background-color: #f1f1f1; border: 1px solid #ccc; cursor: pointer;">Grapes</button></li>
+            </ul>
+            <p id="feedback" style="font-weight: bold;"></p>
+        </section>
+    </div>
+
+    <!-- Go to Test Button -->
+    <div style="text-align: right; padding: 20px;">
+        <a href="Logicalreasoning.html" style="text-decoration: none;">
+            <button style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Go to Test</button>
+        </a>
+    </div>
+
+    <!-- Footer Section -->
+    <div style="background-color: #4CAF50; padding: 10px; text-align: center; color: white;">
+        <p style="margin: 0;">&copy; 2024 Logical Reasoning. All rights reserved.</p>
+    </div>
+
+</body>
+</html>

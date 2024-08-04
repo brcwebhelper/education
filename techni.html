@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Question</title>
+    <script>
+        function checkAnswer(button, isCorrect) {
+            const feedback = document.getElementById('feedback');
+            if (isCorrect) {
+                feedback.textContent = 'Correct! "O(n^2)" is the time complexity of bubble sort in the worst case.';
+                feedback.style.color = 'green';
+            } else {
+                feedback.textContent = 'Incorrect. Try again.';
+                feedback.style.color = 'red';
+            }
+        }
+    </script>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
+
+    <!-- Header Section -->
+    <div style="background-color: #4CAF50; padding: 20px; text-align: center; color: white;">
+        <h1 style="margin: 0;">Technical Questions</h1>
+    </div>
+
+    <!-- Main Content Section -->
+    <div style="padding: 20px;">
+
+        <!-- What are Technical Questions -->
+        <section style="margin-bottom: 20px;">
+            <h2 style="color: #4CAF50;">What are Technical Questions?</h2>
+            <p>Technical questions assess the specific knowledge and skills required for a particular job or field. They often focus on problem-solving, understanding of concepts, and practical application of knowledge.</p>
+        </section>
+
+        <!-- Importance of Technical Questions -->
+        <section style="margin-bottom: 20px;">
+            <h2 style="color: #4CAF50;">Why are Technical Questions Important?</h2>
+            <p>Technical questions are crucial in evaluating a candidate's ability to perform job-specific tasks. They help employers determine if the candidate possesses the necessary technical skills and knowledge to be successful in the role.</p>
+        </section>
+
+        <!-- Benefits of Technical Questions -->
+        <section style="margin-bottom: 20px;">
+            <h2 style="color: #4CAF50;">Benefits of Technical Questions</h2>
+            <ul style="list-style-type: disc; margin-left: 20px;">
+                <li>Identify technical proficiency and problem-solving skills.</li>
+                <li>Ensure candidates have relevant and up-to-date knowledge.</li>
+                <li>Differentiate between candidates with similar qualifications.</li>
+                <li>Assess practical application of theoretical concepts.</li>
+            </ul>
+        </section>
+
+        <!-- Sample Technical Question -->
+        <section>
+            <h2 style="color: #4CAF50;">Sample Technical Question</h2>
+            <p>What is the time complexity of bubble sort in the worst case?</p>
+            <ul style="list-style-type: none; padding: 0;">
+                <li><button onclick="checkAnswer(this, false)" style="padding: 10px 20px; margin: 5px; background-color: #f1f1f1; border: 1px solid #ccc; cursor: pointer;">O(n)</button></li>
+                <li><button onclick="checkAnswer(this, false)" style="padding: 10px 20px; margin: 5px; background-color: #f1f1f1; border: 1px solid #ccc; cursor: pointer;">O(log n)</button></li>
+                <li><button onclick="checkAnswer(this, true)" style="padding: 10px 20px; margin: 5px; background-color: #f1f1f1; border: 1px solid #ccc; cursor: pointer;">O(n^2)</button></li>
+                <li><button onclick="checkAnswer(this, false)" style="padding: 10px 20px; margin: 5px; background-color: #f1f1f1; border: 1px solid #ccc; cursor: pointer;">O(n log n)</button></li>
+            </ul>
+            <p id="feedback" style="font-weight: bold;"></p>
+        </section>
+    </div>
+
+    <!-- Go to Test Button -->
+    <div style="text-align: right; padding: 20px;">
+        <a href="Tech.html" style="text-decoration: none;">
+            <button style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Go to Test</button>
+        </a>
+    </div>
+
+    <!-- Footer Section -->
+    <div style="background-color: #4CAF50; padding: 10px; text-align: center; color: white;">
+        <p style="margin: 0;">&copy; 2024 Technical Questions. All rights reserved.</p>
+    </div>
+
+</body>
+</html>

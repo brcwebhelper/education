@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schedule your HR Round</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .left-side {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .left-side img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .right-side {
+            flex: 1;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            margin: 20px;
+            overflow-y: auto;
+            height: 90vh;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label, input[type="submit"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], input[type="file"], input[type="datetime-local"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: linear-gradient(90deg, #e52e71, #ff8a00);
+        }
+
+        #scheduledMeetings {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .stars {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: black;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkling 2s infinite alternate, moveStars 50s linear infinite;
+        }
+
+        @keyframes twinkling {
+            from {
+                opacity: 0.5;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes moveStars {
+            from {
+                transform: translateX(0) translateY(0);
+            }
+            to {
+                transform: translateX(100vw) translateY(100vh);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="container">
+        <div class="left-side">
+            <img src="interview.jpeg" alt="Interview Image">
+        </div>
+        <div class="right-side">
+            <h2>Schedule your HR Round</h2>
+            <form id="meetingForm" enctype="multipart/form-data">
+                <label for="name">Student Name:</label><br>
+                <input type="text" id="name" name="name" required><br><br>
+
+                <label for="resume">Resume:</label><br>
+                <input type="file" id="resume" name="resume" required><br><br>
+
+                <label for="timeSlot">Preferred Time Slot:</label><br>
+                <input type="datetime-local" id="timeSlot" name="timeSlot" required><br><br>
+
+                <input type="submit" value="Submit">
+            </form>
+
+            <h3>Scheduled Meetings</h3>
+            <div id="scheduledMeetings"></div>
+        </div>
+    </div>
+
+    <script>
+        // Generate stars for the background
+        function createStars() {
+            const stars = document.getElementById('stars');
+            const starCount = 200;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDuration = `${Math.random() * 5 + 2}s, ${Math.random() * 50 + 50}s`;
+                stars.appendChild(star);
+            }
+        }
+
+        document.getElementById('meetingForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const timeSlot = formData.get('timeSlot');
+            const scheduledMeetings = document.getElementById('scheduledMeetings');
+
+            // Create a new meeting entry
+            const meetingDiv = document.createElement('div');
+            meetingDiv.className = 'meeting';
+
+            const meetingDetails = `
+                <p><strong>Student Name:</strong> ${name}</p>
+                <p><strong>Preferred Time Slot:</strong> ${new Date(timeSlot).toLocaleString()}</p>
+            `;
+
+            meetingDiv.innerHTML = meetingDetails;
+            scheduledMeetings.appendChild(meetingDiv);
+
+            // Clear form
+            this.reset();
+        });
+
+        // Initialize stars background
+        createStars();
+    </script>
+</body>
+</html>

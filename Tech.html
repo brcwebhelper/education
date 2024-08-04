@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Exam</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0c0c0c;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #exam-container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 80%;
+            max-width: 800px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+
+        #timer {
+            font-size: 1.5em;
+            color: #ffcc00;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #question-container {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        #question-navigation {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        #question-navigation button {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            font-size: 1em;
+        }
+
+        #question-navigation button.active {
+            background: #0056b3;
+        }
+
+        #question-navigation button.answered {
+            background: #28a745;
+        }
+
+        #question-display {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            padding: 20px;
+            min-height: 200px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        #question-display p {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .nav-buttons button {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .nav-buttons button:hover {
+            background: #218838;
+        }
+
+        #save-answer-button {
+            background: #ffc107;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        #save-answer-button:hover {
+            background: #e0a800;
+        }
+
+        #submit-button {
+            background: #dc3545;
+        }
+
+        #submit-button:hover {
+            background: #c82333;
+        }
+
+        #reset-button {
+            background: #ffc107;
+            display: none;
+        }
+
+        #reset-button:hover {
+            background: #e0a800;
+        }
+
+        @media screen and (max-width: 600px) {
+            #question-navigation button {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8em;
+            }
+
+            .nav-buttons button {
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="exam-container">
+        <header>
+            <h1>Technical Exam</h1>
+            <div id="timer">30:00</div>
+        </header>
+        <div id="question-container">
+            <div id="question-navigation">
+                <!-- Question numbers will be generated dynamically -->
+            </div>
+            <div id="question-display">
+                <!-- Questions will be displayed here -->
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <button id="prev-button">Previous</button>
+            <button id="next-button">Next</button>
+        </div>
+        <button id="save-answer-button">Save Answer</button>
+        <button id="submit-button">Submit Exam</button>
+        <button id="reset-button">Reset Exam</button>
+    </div>
+    <script>
+       const questions = [
+    { id: 1, text: "What is the time complexity of the worst-case scenario of QuickSort?", options: { A: "O(n log n)", B: "O(n)", C: "O(n^2)", D: "O(log n)" }, answer: "C" },
+    { id: 2, text: "Which of the following data structures stores data in a non-linear relationship?", options: { A: "Array", B: "Linked List", C: "Queue", D: "Stack" }, answer: "B" },
+    { id: 3, text: "What does BFS stand for?", options: { A: "Best-First Search", B: "Breadth-First Search", C: "Binary File System", D: "Bloom Filter Structure" }, answer: "B" },
+    { id: 4, text: "Which of the following sorting algorithms has the worst time complexity?", options: { A: "Merge Sort", B: "Bubble Sort", C: "Quick Sort", D: "Insertion Sort" }, answer: "B" },
+    { id: 5, text: "What is the main advantage of a hash table?", options: { A: "Provides ordered storage", B: "Allows for efficient searching", C: "Uses less memory than arrays", D: "Preserves insertion order" }, answer: "B" },
+    { id: 6, text: "In a binary search tree, which traversal visits the nodes in ascending order?", options: { A: "Pre-order traversal", B: "Post-order traversal", C: "In-order traversal", D: "Level-order traversal" }, answer: "C" },
+    { id: 7, text: "What is the time complexity of the binary search algorithm?", options: { A: "O(n)", B: "O(n log n)", C: "O(log n)", D: "O(n^2)" }, answer: "C" },
+    { id: 8, text: "Which of the following is not a Greedy Algorithm?", options: { A: "Dijkstra's Algorithm", B: "Prim's Algorithm", C: "Kruskal's Algorithm", D: "Floyd-Warshall Algorithm" }, answer: "D" },
+    { id: 9, text: "What is the worst-case time complexity of the Floyd-Warshall algorithm?", options: { A: "O(n log n)", B: "O(n^2)", C: "O(n^3)", D: "O(log n)" }, answer: "C" },
+    { id: 10, text: "Which data structure is used for implementing LRU (Least Recently Used) cache?", options: { A: "Array", B: "Linked List", C: "Queue", D: "Stack" }, answer: "B" },
+    // Add more questions here...
+    { id: 11, text: "What is the average time complexity of the QuickSort algorithm?", options: { A: "O(n)", B: "O(n log n)", C: "O(n^2)", D: "O(log n)" }, answer: "B" },
+    { id: 12, text: "Which of the following data structures is more suitable for priority scheduling algorithms?", options: { A: "Array", B: "Linked List", C: "Queue", D: "Heap" }, answer: "D" },
+    { id: 13, text: "What is the main advantage of using a heap data structure?", options: { A: "Provides constant-time access to minimum element", B: "Ensures elements are stored in sorted order", C: "Has a smaller memory footprint compared to arrays", D: "Supports O(1) insertion time" }, answer: "A" },
+    { id: 14, text: "Which of the following is not a type of graph?", options: { A: "Tree", B: "Directed Graph", C: "Cyclic Graph", D: "Binary Graph" }, answer: "D" },
+    { id: 15, text: "What is the time complexity of the Bellman-Ford algorithm?", options: { A: "O(n)", B: "O(n log n)", C: "O(n^2)", D: "O(n * E)" }, answer: "D" },
+    { id: 16, text: "Which of the following is a dynamic programming technique used to optimize recursion?", options: { A: "Greedy Algorithm", B: "Backtracking", C: "Memoization", D: "Breadth-First Search" }, answer: "C" },
+    { id: 17, text: "What is the primary benefit of using AVL trees over binary search trees?", options: { A: "Faster search time", B: "Easier implementation", C: "Guaranteed balanced structure", D: "Reduced memory usage" }, answer: "C" },
+    { id: 18, text: "Which algorithm is used to find the strongly connected components in a directed graph?", options: { A: "Dijkstra's Algorithm", B: "Bellman-Ford Algorithm", C: "Prim's Algorithm", D: "Tarjan's Algorithm" }, answer: "D" },
+    { id: 19, text: "What is the worst-case time complexity of the Bucket Sort algorithm?", options: { A: "O(n log n)", B: "O(n^2)", C: "O(n)", D: "O(log n)" }, answer: "B" },
+    { id: 20, text: "Which data structure is suitable for implementing a graph?", options: { A: "Array", B: "Linked List", C: "Matrix", D: "All of the above" }, answer: "D" },
+    // Add more questions here...
+    { id: 21, text: "What is the main advantage of using a Trie data structure?", options: { A: "Allows for efficient prefix search", B: "Provides constant-time access to elements", C: "Reduces memory usage compared to arrays", D: "Supports O(log n) insertion time" }, answer: "A" },
+    { id: 22, text: "Which algorithm is used to find the shortest path in a weighted graph with positive weights?", options: { A: "Dijkstra's Algorithm", B: "Bellman-Ford Algorithm", C: "Kruskal's Algorithm", D: "Floyd-Warshall Algorithm" }, answer: "A" },
+    { id: 23, text: "What is the time complexity of the Prim's algorithm for finding minimum spanning tree?", options: { A: "O(n log n)", B: "O(n^2)", C: "O(n * E)", D: "O(E log V)" }, answer: "D" },
+    { id: 24, text: "Which of the following is a method used in Divide and Conquer algorithms?", options: { A: "Breadth-First Search", B: "Backtracking", C: "Merge Sort", D: "Dynamic Programming" }, answer: "C" },
+    { id: 25, text: "What is the primary application of the KMP (Knuth-Morris-Pratt) algorithm?", options: { A: "Pattern matching in strings", B: "Finding shortest path in graphs", C: "Searching elements in an array", D: "Sorting elements in a list" }, answer: "A" },
+    { id: 26, text: "Which of the following is an example of an NP-complete problem?", options: { A: "Sorting", B: "Graph coloring", C: "Binary search", D: "Breadth-First Search" }, answer: "B" },
+    { id: 27, text: "What is the main advantage of using a segment tree data structure?", options: { A: "Allows efficient range queries", B: "Provides constant-time access to elements", C: "Uses less memory than arrays", D: "Guarantees elements are stored in sorted order" }, answer: "A" },
+    { id: 28, text: "Which of the following algorithms is used to find all connected components in an undirected graph?", options: { A: "Breadth-First Search", B: "Depth-First Search", C: "Floyd-Warshall Algorithm", D: "Dijkstra's Algorithm" }, answer: "B" },
+    { id: 29, text: "What is the time complexity of the Radix Sort algorithm?", options: { A: "O(n log n)", B: "O(n^2)", C: "O(n)", D: "O(k * n)" }, answer: "D" },
+    { id: 30, text: "Which data structure is used to implement recursion?", options: { A: "Stack", B: "Queue", C: "Array", D: "Linked List" }, answer: "A" }
+];
+
+const totalQuestions = 30; // Total number of questions
+const passingScore = 25;
+const maxAttempts = 3;
+const timeLimit = 30 * 60 * 1000; // 30 minutes in milliseconds
+
+let currentQuestionIndex = 0;
+let score = 0;
+let attempts = 0;
+let timer;
+let answeredQuestions = {};
+
+document.addEventListener("DOMContentLoaded", () => {
+    generateQuestionNavigation();
+    displayQuestion(currentQuestionIndex);
+    startTimer();
+    preventCopyPaste();
+    preventNavigation();
+});
+
+function generateQuestionNavigation() {
+    const navContainer = document.getElementById("question-navigation");
+    for (let i = 0; i < totalQuestions; i++) {
+        const button = document.createElement("button");
+        button.textContent = i + 1;
+        button.addEventListener("click", () => navigateToQuestion(i));
+        navContainer.appendChild(button);
+    }
+}
+
+function displayQuestion(index) {
+    const questionDisplay = document.getElementById("question-display");
+    const currentQuestion = questions[index];
+    let optionsHtml = "";
+    for (const key in currentQuestion.options) {
+        if (currentQuestion.options.hasOwnProperty(key)) {
+            optionsHtml += `<label><input type="radio" name="answer" value="${key}"> ${key}: ${currentQuestion.options[key]}</label>`;
+        }
+    }
+    questionDisplay.innerHTML = `
+        <p>${currentQuestion.text}</p>
+        ${optionsHtml}
+    `;
+    highlightCurrentQuestion(index);
+    restoreSelectedAnswer(index);
+}
+
+function highlightCurrentQuestion(index) {
+    const buttons = document.querySelectorAll("#question-navigation button");
+    buttons.forEach(button => button.classList.remove("active"));
+    buttons[index].classList.add("active");
+}
+
+function navigateToQuestion(index) {
+    currentQuestionIndex = index;
+    displayQuestion(index);
+}
+
+document.getElementById("prev-button").addEventListener("click", () => {
+    if (currentQuestionIndex > 0) {
+        navigateToQuestion(currentQuestionIndex - 1);
+    }
+});
+
+document.getElementById("next-button").addEventListener("click", () => {
+    if (currentQuestionIndex < totalQuestions - 1) {
+        navigateToQuestion(currentQuestionIndex + 1);
+    }
+});
+
+document.getElementById("save-answer-button").addEventListener("click", saveAnswer);
+
+function saveAnswer() {
+    const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+    if (selectedAnswer) {
+        answeredQuestions[currentQuestionIndex] = selectedAnswer.value;
+        markQuestionAsAnswered(currentQuestionIndex);
+    }
+}
+
+function startTimer() {
+    const timerDisplay = document.getElementById("timer");
+    let timeRemaining = timeLimit;
+
+    timer = setInterval(() => {
+        timeRemaining -= 1000;
+        const minutes = Math.floor(timeRemaining / 60000);
+        const seconds = ((timeRemaining % 60000) / 1000).toFixed(0);
+        timerDisplay.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+        if (timeRemaining <= 0) {
+            clearInterval(timer);
+            submitExam();
+        }
+    }, 1000);
+}
+
+function preventCopyPaste() {
+    document.addEventListener("copy", event => event.preventDefault());
+    document.addEventListener("paste", event => event.preventDefault());
+}
+
+function preventNavigation() {
+    window.onblur = () => alert("Please stay on the page to complete the exam.");
+}
+
+document.getElementById("submit-button").addEventListener("click", submitExam);
+
+function submitExam() {
+    const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+    if (selectedAnswer) {
+        answeredQuestions[currentQuestionIndex] = selectedAnswer.value;
+        if (selectedAnswer.value === questions[currentQuestionIndex].answer) {
+            score++;
+        }
+        markQuestionAsAnswered(currentQuestionIndex);
+    }
+
+    if (score >= passingScore) {
+        alert("Congratulations! You've passed the exam.");
+        // Proceed to the next exam
+    } else {
+        attempts++;
+        if (attempts < maxAttempts) {
+            alert(`You have ${maxAttempts - attempts} attempts remaining.`);
+            resetForNextAttempt();
+        } else {
+            alert("You've reached the maximum number of attempts. The exam is now locked.");
+            document.getElementById("submit-button").disabled = true;
+            document.getElementById("reset-button").style.display = "block";
+        }
+    }
+}
+
+document.getElementById("reset-button").addEventListener("click", resetExam);
+
+function resetExam() {
+    attempts = 0;
+    score = 0;
+    currentQuestionIndex = 0;
+    answeredQuestions = {};
+    const buttons = document.querySelectorAll("#question-navigation button");
+    buttons.forEach(button => button.classList.remove("answered", "active"));
+    displayQuestion(currentQuestionIndex);
+    document.getElementById("submit-button").disabled = false;
+    document.getElementById("reset-button").style.display = "none";
+    startTimer();
+}
+
+function markQuestionAsAnswered(index) {
+    const buttons = document.querySelectorAll("#question-navigation button");
+    buttons[index].classList.add("answered");
+}
+
+function restoreSelectedAnswer(index) {
+    const selectedAnswer = answeredQuestions[index];
+    if (selectedAnswer) {
+        document.querySelector(`input[name="answer"][value="${selectedAnswer}"]`).checked = true;
+    }
+}
+
+    </script>
+</body>
+</html>

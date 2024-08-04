@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Opportunities</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('space.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .job-opening {
+            display: flex;
+            align-items: center;
+            border: 1px solid #444;
+            border-radius: 8px;
+            margin: 10px 0;
+            padding: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .job-opening img {
+            max-width: 100px;
+            margin-right: 20px;
+            border-radius: 8px;
+        }
+
+        .job-opening:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.02);
+        }
+
+        .job-description {
+            flex-grow: 1;
+        }
+
+        .job-description h2 {
+            margin: 0;
+            color: #ffd700;
+        }
+
+        .job-description p {
+            margin: 5px 0;
+        }
+
+        .apply-button,
+        .apply-now-button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            align-self: flex-start;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .apply-button:hover,
+        .apply-now-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        .applied-button {
+            background-color: green;
+            cursor: default;
+        }
+
+        .job-detail {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            animation: fadeIn 2s;
+        }
+
+        .application-form {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            animation: fadeIn 2s;
+        }
+
+        .application-form h2 {
+            margin-top: 0;
+        }
+
+        .application-form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .application-form input[type="text"],
+        .application-form input[type="email"],
+        .application-form input[type="file"],
+        .application-form textarea,
+        .application-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px; /* Ensure equal gaps */
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .application-form button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .application-form button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        #background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: -1;
+        }
+
+        .error {
+            color: red;
+            display: none;
+        }
+
+        .optional {
+            font-size: small;
+            color: grey;
+        }
+        .phone-input {
+    display: flex;
+    align-items: center;
+    max-width: 300px;
+    margin-bottom: 15px;
+}
+
+#countryCode {
+    flex: 1;
+    max-width: 100px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    background-color: #f2f2f2;
+    color: #333;
+    font-size: 14px;
+}
+
+#phone {
+    flex: 2;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 0 4px 4px 0;
+    background-color: #f2f2f2;
+    color: #333;
+    font-size: 14px;
+}
+
+#phone:focus, #countryCode:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+    </style>
+</head>
+<body>
+    <iframe id="background" src="skyhomebackground.html"></iframe>
+    <div class="container">
+        <h1>Career Opportunities</h1>
+        <div class="job-opening" data-job-id="1">
+            <img src="Digital Markiting  logo.jpeg" alt="Digital Marketing Image">
+            <div class="job-description">
+                <h2>Digital Marketing</h2>
+                <button class="apply-button" onclick="showJobDetail(1, this)">Apply</button>
+            </div>
+        </div>
+        <div class="job-opening" data-job-id="2">
+            <img src="Sales 2.jpeg" alt="Sales Executives Image">
+            <div class="job-description">
+                <h2>Sales Executives</h2>
+                <button class="apply-button" onclick="showJobDetail(2, this)">Apply</button>
+            </div>
+        </div>
+        <div class="job-opening" data-job-id="3">
+            <img src="HR logo.jpeg" alt="HR Image">
+            <div class="job-description">
+                <h2>HR</h2>
+                <button class="apply-button" onclick="showJobDetail(3, this)">Apply</button>
+            </div>
+        </div>
+        <div class="job-opening" data-job-id="4">
+            <img src="Operations logo.jpeg" alt="Operations Image">
+            <div class="job-description">
+                <h2>Operations</h2>
+                <button class="apply-button" onclick="showJobDetail(4, this)">Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container job-detail" id="jobDetail">
+        <h2>Job Description</h2>
+        <p id="jobDescriptionText"></p>
+        <button class="apply-now-button" onclick="showApplicationForm()">Apply Now</button>
+    </div>
+
+    <div class="container application-form" id="applicationForm">
+        <h2>Application Form</h2>
+        <form id="jobApplicationForm" onsubmit="submitApplication(event)">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" required>
+          
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            
+
+            <label for="jobRole">Job Applying For</label>
+            <select id="jobRole" name="jobRole" required>
+                <option value="">Select Job Role</option>
+                <option value="Digital Marketing">Digital Marketing</option>
+                <option value="Sales Executive">Sales Executive</option>
+                <option value="HR">HR</option>
+                <option value="Operations">Operations</option>
+            </select>
+            
+
+            <label for="phone">Phone Number</label>
+<div style="display: flex;">
+    <select id="countryCode" name="countryCode" required>
+        <option value="">Select Country Code</option>
+        <option value="+1">+1 (USA)</option>
+        <option value="+27">+27 (South Africa)</option>
+        <option value="+33">+33 (France)</option>
+        <option value="+44">+44 (UK)</option>
+        <option value="+49">+49 (Germany)</option>
+        <option value="+61">+61 (Australia)</option>
+        <option value="+81">+81 (Japan)</option>
+        <option value="+86">+86 (China)</option>
+        <option value="+91">+91 (India)</option>
+        <option value="+7">+7 (Russia)</option>
+        <option value="+20">+20 (Egypt)</option>
+        <option value="+234">+234 (Nigeria)</option>
+        <option value="+254">+254 (Kenya)</option>
+        <option value="+355">+355 (Albania)</option>
+        <option value="+503">+503 (El Salvador)</option>
+        <option value="+598">+598 (Uruguay)</option>
+        <option value="+673">+673 (Brunei)</option>
+        <option value="+855">+855 (Cambodia)</option>
+        <option value="+960">+960 (Maldives)</option>
+        <option value="+968">+968 (Oman)</option>
+        <option value="Other">Other</option>
+        <!-- Add more options as needed -->
+    </select>
+    <input type="text" id="phone" name="phone" required>
+</div>
+            
+
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Transgender">Transgender</option>
+                <option value="Non-binary">Non-binary</option>
+                <option value="Genderqueer">Genderqueer</option>
+                <option value="Agender">Agender</option>
+                <option value="Two-Spirit">Two-Spirit</option>
+                <option value="Genderfluid">Genderfluid</option>
+                <option value="Pangender">Pangender</option>
+                <option value="Bigender">Bigender</option>
+                <option value="Demiboy">Demiboy</option>
+                <option value="Demigirl">Demigirl</option>
+                <option value="Other">Other</option>
+            </select>
+           
+
+            <label for="photo">Upload Photograph</label>
+            <input type="file" id="photo" name="photo" required>
+            
+
+            <label for="resume">Upload Resume</label>
+            <input type="file" id="resume" name="resume" required>
+            
+
+            <label for="coverLetter">Cover Letter <span class="optional">(optional)</span></label>
+            <textarea id="coverLetter" name="coverLetter" rows="5"></textarea>
+
+            <button type="submit">Submit Application</button>
+        </form>
+    </div>
+    
+
+    <script>
+         let currentButton;
+        let jobDescriptions = {
+            1: `We are seeking a dynamic and innovative Digital Marketing Specialist to join our team. In this role, you will be responsible for developing, implementing, and managing marketing campaigns that promote our company and its products or services. Your duties will include:
+
+            - Creating and executing digital marketing strategies to drive online traffic and brand awareness.
+            - Managing and optimizing digital channels such as social media, email marketing, SEO, and PPC campaigns.
+            - Analyzing campaign performance data to measure success and identify areas for improvement.
+            - Generating engaging content for various digital platforms, including websites, blogs, and social media.
+            - Collaborating with internal teams to align marketing initiatives with overall business objectives.
+            - Staying up-to-date with the latest digital marketing trends and technologies to keep our strategies fresh and effective.
+
+            The ideal candidate will have a strong background in digital marketing, excellent communication skills, and a creative mindset. If you are passionate about driving results and enhancing brand presence, we would love to hear from you. Join us and be a key player in our digital transformation journey.`,
+
+            2: `We are hiring Sales Executives to join our dynamic sales team. As a Sales Executive, you will be responsible for driving sales and building strong customer relationships. Your duties will include:
+
+            - Identifying and pursuing new sales opportunities through prospecting and networking.
+            - Meeting and exceeding sales targets and quotas.
+            - Providing excellent customer service by understanding client needs and offering tailored solutions.
+            - Developing and maintaining client relationships to foster loyalty and repeat business.
+            - Preparing and delivering presentations and proposals.
+            - Collaborating with the sales team to develop effective sales strategies and action plans.
+
+            The ideal candidate will have strong interpersonal and negotiation skills, a proactive attitude, and a proven track record of sales success. If you are driven by achieving goals and enjoy working in a fast-paced environment, we encourage you to apply.`,
+
+            3: `Join our HR team as an HR Specialist to help us manage recruitment, employee relations, and other HR functions. In this role, you will play a critical role in fostering a positive work environment and ensuring that our HR practices align with business goals. Your duties will include:
+
+            - Recruiting and onboarding new employees by conducting interviews and coordinating orientation programs.
+            - Managing employee relations and performance reviews to ensure a productive and engaged workforce.
+            - Developing and implementing HR policies and procedures.
+            - Ensuring compliance with labor laws and regulations.
+            - Handling employee benefits and compensation.
+            - Organizing training and development programs.
+
+            Experience in HR management is preferred, along with strong organizational and communication skills. If you are passionate about supporting employees and contributing to a positive workplace culture, we would love to have you on our team.`,
+
+            4: `We are seeking an Operations Manager to oversee our daily operations and ensure our business runs smoothly. In this role, you will be responsible for managing operational processes and workflows, improving efficiency and productivity, overseeing inventory and supply chain management, ensuring compliance with safety and quality standards, and leading a team of operations staff. Your duties will include:
+
+            - Developing and implementing operational strategies and action plans to achieve business objectives.
+            - Monitoring and analyzing operational performance metrics.
+            - Identifying areas for improvement and implementing solutions.
+            - Managing budgets and resources effectively.
+            - Collaborating with other departments to optimize processes and achieve cross-functional goals.
+            - Ensuring compliance with company policies and regulatory requirements.
+
+            The ideal candidate will have proven experience in operations management, strong leadership skills, and a strategic mindset. If you thrive in a challenging environment and are passionate about operational excellence, we encourage you to apply.`,
+
+        };
+
+
+
+        function showJobDetail(jobId, button) {
+            document.getElementById('jobDetail').style.display = 'block';
+            document.getElementById('jobDescriptionText').innerText = jobDescriptions[jobId];
+            currentButton = button;
+        }
+
+        function showApplicationForm() {
+            document.getElementById('applicationForm').style.display = 'block';
+        }
+
+        function submitApplication(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            // Here you would typically send the form data to your server using an AJAX request.
+            // For example:
+            // fetch('submit-application-url', {
+            //     method: 'POST',
+            //     body: formData
+            // }).then(response => response.json())
+            //   .then(data => {
+            //       console.log('Success:', data);
+            //       alert('Application submitted successfully!');
+            //   })
+            //   .catch(error => {
+            //       console.error('Error:', error);
+            //       alert('There was an error submitting your application.');
+            //   });
+
+            alert('Application submitted successfully!');
+            form.reset();
+            document.getElementById('applicationForm').style.display = 'none';
+            currentButton.classList.add('applied-button');
+            currentButton.textContent = 'Applied';
+            currentButton.disabled = true;
+        }
+
+       
+
+
+    </script>
+</body>
+</html>

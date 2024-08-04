@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logical Reasoning Exam</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('space_background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 80%;
+            max-width: 1000px;
+            height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .timer {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .question-container {
+            margin-bottom: 20px;
+        }
+
+        .question-container h2 {
+            font-size: 1.2em;
+        }
+
+        .question-container label {
+            display: block;
+            margin: 5px 0;
+        }
+
+        .navigation {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .navigation button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .navigation button:hover {
+            background-color: #0056b3;
+        }
+
+        .submit-btn {
+            background-color: #28a745;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Logical Reasoning Exam</h1>
+        <div class="timer" id="timer">Time Left: 30:00</div>
+        <form id="examForm">
+            <!-- Questions will be generated here by JavaScript -->
+        </form>
+        <div class="navigation">
+            <button type="button" onclick="prevQuestion()">Previous</button>
+            <button type="button" onclick="nextQuestion()">Next</button>
+            <button type="button" class="submit-btn" onclick="submitExam()">Submit Exam</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "1. If all birds can fly, and all eagles are birds, can all eagles fly?",
+                options: ["True", "False", "Uncertain"],
+                answer: 0
+            },
+            {
+                question: "2. If A = B and B = C, then A = C. This is an example of:",
+                options: ["Modus ponens", "Syllogism", "Transitivity"],
+                answer: 2
+            },
+            {
+                question: "3. If today is Sunday, what day was it yesterday if it will be Wednesday in 5 days?",
+                options: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                answer: 1
+            },
+            {
+                question: "4. If every student in a class of 50 students has either a cat or a dog, and 20 students have cats, how many have dogs?",
+                options: ["10", "20", "30", "40", "50"],
+                answer: 3
+            },
+            {
+                question: "5. A train leaves Station A for Station B at 10:00 AM, traveling at 60 mph. Another train leaves Station B for Station A at 11:00 AM, traveling at 80 mph. Where will they meet?",
+                options: ["Station A", "Station B", "Somewhere between Station A and B", "They will not meet"],
+                answer: 2
+            },
+            {
+                question: "6. If all roses are flowers and all flowers fade with time, do all roses fade with time?",
+                options: ["True", "False", "Uncertain"],
+                answer: 0
+            },
+            {
+                question: "7. A cube is painted red on all sides and then cut into smaller cubes of 1 cm³ each. How many of these smaller cubes will have exactly one red face?",
+                options: ["1", "4", "6", "8"],
+                answer: 3
+            },
+            {
+                question: "8. In a code, '512' means 'gold is pure', '783' means 'gold and silver', and '215' means 'is pure'. What does '7' stand for in this code?",
+                options: ["and", "gold", "silver", "is"],
+                answer: 0
+            },
+            {
+                question: "9. If all roses are flowers, are all flowers roses?",
+                options: ["True", "False", "Uncertain"],
+                answer: 1
+            },
+            {
+                question: "10. If it takes 5 machines 5 minutes to make 5 widgets, how long would it take 100 machines to make 100 widgets?",
+                options: ["5 minutes", "10 minutes", "100 minutes", "500 minutes"],
+                answer: 0
+            },
+            {
+                question: "11. If John is taller than Sarah, and Sarah is taller than Emma, who among them is the tallest?",
+                options: ["John", "Sarah", "Emma", "Cannot be determined"],
+                answer: 0
+            },
+            {
+                question: "12. If all pencils are pens and some pens are markers, are all markers pencils?",
+                options: ["True", "False", "Uncertain"],
+                answer: 1
+            },
+            {
+                question: "13. If 'A' stands for 'B', 'B' stands for 'C', and 'C' stands for 'D', what does 'A' stand for?",
+                options: ["A", "B", "C", "D"],
+                answer: 1
+            },
+            {
+                question: "14. If 5 cats catch 5 mice in 5 minutes, how many cats are needed to catch 100 mice in 100 minutes?",
+                options: ["5", "10", "20", "100"],
+                answer: 0
+            },
+            {
+                question: "15. If it takes 6 people 6 days to dig 6 holes, how many days would it take for 3 people to dig half a hole?",
+                options: ["1", "2", "3", "6"],
+                answer: 3
+            },
+            {
+                question: "16. If all squares are rectangles, are all rectangles squares?",
+                options: ["True", "False", "Uncertain"],
+                answer: 1
+            },
+            {
+                question: "17. If a clock strikes once at 1 o'clock, twice at 2 o'clock, thrice at 3 o'clock, and so on, how many times will it strike in 24 hours?",
+                options: ["78", "156", "300", "312"],
+                answer: 3
+            },
+            {
+                question: "18. If all professors are scholars and some scholars are writers, are all professors writers?",
+                options: ["True", "False", "Uncertain"],
+                answer: 1
+            },
+            {
+                question: "19. A car travels 100 miles at 50 mph. How fast must it go on the return trip to average 100 mph for the entire trip?",
+                options: ["100 mph", "150 mph", "200 mph", "250 mph"],
+                answer: 2
+            },
+            {
+                question: "20. If all athletes are strong and some strong people are not athletes, are all athletes strong?",
+                options: ["True", "False", "Uncertain"],
+                answer: 0
+            },
+            {
+                question: "21. If 8 people can build 8 houses in 8 days, how many days would it take for 4 people to build 4 houses?",
+                options: ["2", "4", "8", "16"],
+                answer: 2
+            },
+            {
+                question: "22. If all mammals have fur and some fur-covered animals are not mammals, are all mammals fur-covered animals?",
+                options: ["True", "False", "Uncertain"],
+                answer: 1
+            },
+            {
+                question: "23. If all computers are machines and some machines are not computers, are all computers machines?",
+                options: ["True", "False", "Uncertain"],
+                answer: 1
+            },
+            {
+                question: "24. If a triangle has three sides of equal length, is it an equilateral triangle?",
+                options: ["True", "False", "Uncertain"],
+                answer: 0
+            },
+            {
+                question: "25. If all even numbers are divisible by 2, is 4 an even number?",
+                options: ["True", "False", "Uncertain"],
+                answer: 0
+            },
+        ];
+
+        let currentQuestion = 0;
+        let tabSwitchCount = 0;
+        let examSubmitted = false;
+
+        window.addEventListener('blur', () => {
+            if (!examSubmitted) {
+                tabSwitchCount++;
+                if (tabSwitchCount === 1) {
+                    alert("You cannot switch tabs during the exam!");
+                } else if (tabSwitchCount === 2) {
+                    alert("You have switched tabs again. Your exam will be submitted.");
+                    submitExam(true);
+                }
+            }
+        });
+
+        window.addEventListener('copy', (event) => {
+            event.preventDefault();
+            alert("Copying is not allowed during the exam!");
+        });
+
+        window.onload = function() {
+            displayQuestion();
+            startTimer(1800, document.getElementById('timer'));
+        };
+
+        function displayQuestion() {
+            const questionContainer = document.getElementById('examForm');
+            questionContainer.innerHTML = `
+                <div class="question-container">
+                    <h2>${questions[currentQuestion].question}</h2>
+                    ${questions[currentQuestion].options.map((option, index) => `
+                        <label>
+                            <input type="radio" name="question${currentQuestion}" value="${index}">
+                            ${option}
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+            }
+        }
+
+        function submitExam(isTabSwitch = false) {
+            examSubmitted = true; // Set examSubmitted to true to prevent further tab switch alerts
+            const form = document.getElementById('examForm');
+            const formData = new FormData(form);
+            const userAnswers = questions.map((question, index) => formData.get(`question${index}`));
+            console.log(userAnswers); // This line is for debugging. Remove it in production.
+
+            alert("Exam submitted successfully!");
+
+            // Redirect to a new page after submitting
+            if (isTabSwitch) {
+                window.location.href = "placement class.html";
+            } else {
+                window.open("Submit.html", "_blank"); // Open new page
+            }
+        }
+
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            setInterval(function () {
+                if (examSubmitted) return; // Stop the timer if the exam is submitted
+
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = `Time Left: ${minutes}:${seconds}`;
+
+                if (--timer < 0) {
+                    timer = 0;
+                    alert("Time is up! Submitting your exam.");
+                    submitExam();
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spiral Galaxy Animation</title>
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        background-color: black;
+    }
+
+    #galaxy {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+    }
+
+    .star {
+        position: absolute;
+        background-color: white;
+        border-radius: 50%;
+    }
+</style>
+</head>
+<body>
+<div id="galaxy"></div>
+<script>
+    const galaxy = document.getElementById('galaxy');
+    const numberOfStars = 1000;
+
+    for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        const radius = Math.random() * 2 + 1;
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 300;
+        const speed = Math.random() * 0.005 + 0.002; // Varying speed for more realism
+        const x = galaxy.offsetWidth / 2 + Math.cos(angle) * distance;
+        const y = galaxy.offsetHeight / 2 + Math.sin(angle) * distance;
+        star.style.width = `${radius}px`;
+        star.style.height = `${radius}px`;
+        star.style.left = `${x}px`;
+        star.style.top = `${y}px`;
+        galaxy.appendChild(star);
+
+        const animation = star.animate([
+            { transform: 'rotate(0deg) translate(0px)' },
+            { transform: `rotate(${angle * 180 / Math.PI}deg) translate(${distance}px)` }
+        ], {
+            duration: Math.random() * 5000 + 5000, // Varying duration for more randomness
+            iterations: Infinity,
+            easing: 'linear' // Ensure constant speed
+        });
+    }
+</script>
+</body>
+</html>
